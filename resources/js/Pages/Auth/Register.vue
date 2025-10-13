@@ -36,32 +36,33 @@ const submit = () => {
                 <div class="form-control-icon">
                     <i class="bi bi-envelope"></i>
                 </div>
-                <InputError class="mt-2" :message="form.errors.name" />
+                
             </div>
+            <InputError :message="form.errors.email" />
             <div class="form-group position-relative has-icon-left mb-4">
                 <input type="text" class="form-control form-control-xl" placeholder="Nombre de usuario"
                     v-model="form.name" required autofocus autocomplete="name">
                 <div class="form-control-icon">
                     <i class="bi bi-person"></i>
                 </div>
-                <InputError class="mt-2" :message="form.errors.name" />
             </div>
+            <InputError :message="form.errors.name" />
             <div class="form-group position-relative has-icon-left mb-4">
                 <input type="password" class="form-control form-control-xl" placeholder="Contrasena"
                     v-model="form.password" required autocomplete="new-password">
                 <div class="form-control-icon">
                     <i class="bi bi-shield-lock"></i>
                 </div>
-                <InputError class="mt-2" :message="form.errors.password" />
             </div>
+                <InputError :message="form.errors.password" />
             <div class="form-group position-relative has-icon-left mb-4">
                 <input type="password" class="form-control form-control-xl" placeholder="Confirmar contrasena"
                     v-model="form.password_confirmation" required autocomplete="new-password">
                 <div class="form-control-icon">
                     <i class="bi bi-shield-lock"></i>
                 </div>
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
+                <InputError :message="form.errors.password_confirmation" />
             <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing">Registrar</button>
         </form>

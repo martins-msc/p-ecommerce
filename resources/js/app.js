@@ -25,3 +25,8 @@ createInertiaApp({
         color: '#4B5563',
     },
 });
+// template
+import '../template/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js';
+import '../template/assets/js/bootstrap.bundle.min.js'
+import '../template/assets/js/pages/dashboard.js';
+import '../template/assets/js/main.js';

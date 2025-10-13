@@ -6,3 +6,11 @@
 @import "../template/assets/css/bootstrap.css";
 @import "../template/assets/css/app.css";
 @import "../template/assets/css/pages/auth.css";
+
+@import "../template/assets/vendors/iconly/bold.css";
+@import "../template/assets/vendors/perfect-scrollbar/perfect-scrollbar.css";
+@import "../template/assets/vendors/bootstrap-icons/bootstrap-icons.css";
+body {
+  background-color: #e9f1ff !important; /* Usa !important para forzar tu color */
+}
+
