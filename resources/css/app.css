@@ -1,3 +1,8 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+/* template files */
+@import "../template/assets/css/bootstrap.css";
+@import "../template/assets/css/app.css";
+@import "../template/assets/css/pages/auth.css";

@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import logo from '../../template/assets/images/logo/logo.png';
 
 defineProps({
     canLogin: {
@@ -28,7 +29,7 @@ function handleImageError() {
 
 <template>
     <Head title="Welcome" />
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
+    <div >
         <img
             id="background"
             class="absolute -left-20 top-0 max-w-[877px]"
@@ -83,7 +84,7 @@ function handleImageError() {
                 </header>
 
                 <main class="mt-6">
-                    <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
+                    <!-- <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
                         <a
                             href="https://laravel.com/docs"
                             id="docs-card"
@@ -372,7 +373,7 @@ function handleImageError() {
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </main>
 
                 <footer
