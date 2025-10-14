@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SettingController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -23,5 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware(['auth','verified']);
+Route::get('/admin/setting', [SettingController::class, 'index'])->name('admin.setting.index')->middleware(['auth','verified']);
 
 require __DIR__.'/auth.php';

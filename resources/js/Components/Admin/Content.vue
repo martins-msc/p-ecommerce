@@ -1,6 +1,10 @@
 <script setup>
 import { onMounted } from 'vue';
 
+defineProps({
+    title: String
+});
+
 onMounted(() => {
     const burgerBtn = document.querySelector('.burger-btn');
     const sidebarHideBtn = document.querySelector('.sidebar-hide');
@@ -29,7 +33,7 @@ onMounted(() => {
         </header>
 
         <div class="page-heading">
-            <h3>Editable </h3>
+            <h3>{{ title }} </h3>
         </div>
 
         <!-- Main Content admin user -->

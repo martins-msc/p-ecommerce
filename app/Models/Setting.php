@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Setting extends Model
+{
+    protected $table = 'setting';
+    protected $fillable = [
+        'name',
+        'description',
+        'branch_store',
+        'address',
+        'phone_number',
+        'logo',
+        'image_login',
+        'email',
+        'currency',
+        'web_site'
+    ];
+}

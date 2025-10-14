@@ -29,7 +29,7 @@ onMounted(() => {
             <div class="sidebar-header">
                 <div class="d-flex justify-content-between">
                     <div class="logo">
-                        <a href="index.html"><img :src="logo" alt="Logo" srcset=""></a>
+                        <Link :href="route('dashboard')"><img :src="logo" alt="Logo" srcset=""></Link>
                     </div>
                     <div class="toggler">
                         <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -41,17 +41,18 @@ onMounted(() => {
                     <li class="sidebar-title">Menu</li>
 
                     <li class="sidebar-item active ">
-                        <a href="index.html" class='sidebar-link'>
+                        <Link :href="route('dashboard')" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
-                        </a>
+                        </Link>
                     </li>
 
+                    <li class="sidebar-title">Ajustes</li>
                     <li class="sidebar-item  ">
-                        <a href="table-datatable.html" class='sidebar-link'>
-                            <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                            <span>Ajustes</span>
-                        </a>
+                        <Link :href="route('admin.setting.index')" class='sidebar-link'>
+                            <i class="bi bi-gear-fill"></i>
+                            <span>Configuracion</span>
+                        </Link>
                     </li>
 
                     <li class="sidebar-item  has-sub">
