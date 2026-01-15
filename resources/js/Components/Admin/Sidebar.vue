@@ -3,6 +3,7 @@ import logo from '../../../template/assets/images/logo/logo.png';
 import { onMounted } from 'vue';
 import { Link } from '@inertiajs/vue3';
 
+
 onMounted(() => {
     const sidebarItems = document.querySelectorAll('.sidebar-item.has-sub');
     sidebarItems.forEach(item => {
@@ -40,15 +41,25 @@ onMounted(() => {
                 <ul class="menu">
                     <li class="sidebar-title">Menu</li>
 
-                    <li class="sidebar-item active ">
+                    <li class="sidebar-item" :class="{ active: route().current('dashboard') }"
+                        >
                         <Link :href="route('dashboard')" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
                         </Link>
                     </li>
 
+                    <li @click="activeTab = 'roles'" class="sidebar-item" :class="{ active: route().current('admin.setting.index') }"
+                        >
+                        <Link :href="route('admin.setting.index')" class='sidebar-link'>
+                            <i class="bi bi-shield-fill-check"></i>
+                            <span>Roles</span>
+                        </Link>
+                    </li>
+
                     <li class="sidebar-title">Ajustes</li>
-                    <li class="sidebar-item  ">
+                    <li @click="activeTab = 'setting'" class="sidebar-item  " :class="{ active: route().current('admin.setting.index') }"
+                        >
                         <Link :href="route('admin.setting.index')" class='sidebar-link'>
                             <i class="bi bi-gear-fill"></i>
                             <span>Configuracion</span>
