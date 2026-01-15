@@ -49,16 +49,16 @@ onMounted(() => {
                         </Link>
                     </li>
 
-                    <li @click="activeTab = 'roles'" class="sidebar-item" :class="{ active: route().current('admin.setting.index') }"
+                    <li class="sidebar-item" :class="{ active: route().current('admin.roles.index') }"
                         >
-                        <Link :href="route('admin.setting.index')" class='sidebar-link'>
+                        <Link :href="route('admin.roles.index')" class='sidebar-link'>
                             <i class="bi bi-shield-fill-check"></i>
                             <span>Roles</span>
                         </Link>
                     </li>
 
                     <li class="sidebar-title">Ajustes</li>
-                    <li @click="activeTab = 'setting'" class="sidebar-item  " :class="{ active: route().current('admin.setting.index') }"
+                    <li class="sidebar-item  " :class="{ active: route().current('admin.setting.index') }"
                         >
                         <Link :href="route('admin.setting.index')" class='sidebar-link'>
                             <i class="bi bi-gear-fill"></i>
