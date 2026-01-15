@@ -28,5 +28,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware(['auth','verified']);
 Route::get('/admin/setting', [SettingController::class, 'index'])->name('admin.setting.index')->middleware(['auth','verified']);
+Route::post('/admin/setting', [SettingController::class, 'store'])->name('admin.setting.store')->middleware(['auth', 'verified']);
+
 
 require __DIR__.'/auth.php';
