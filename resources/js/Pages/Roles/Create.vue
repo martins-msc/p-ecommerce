@@ -52,9 +52,6 @@ const props = defineProps({
     setting: Object
 });
 
-const previewLogo = ref(props.setting?.logo ? `/storage/${props.setting.logo}` : '');
-const previewImageLogin = ref(props.setting?.image_login ? `/storage/${props.setting.image_login}` : '');
-
 const form = useForm({
     name: props.setting?.system_name ? props.setting.system_name : '', // the firt ? avoid errors of null or undefined
     description: props.setting?.description ? props.setting.description : '',
@@ -72,15 +69,7 @@ const form = useForm({
 const storeRole = () => {
     form.post(route('admin.roles.store'), {
         preserveScroll: true,
-        // onSuccess: () => form.reset(),
         onError: () => {
-            // if (form.errors.password) {
-            //     form.reset('password', 'password_confirmation');
-            //     passwordInput.value.focus();
-            // }
-            // if (form.errors.current_password) {
-            //     form.reset('current_password');
-            //     currentPasswordInput.value.focus();
             // }
         },
     });

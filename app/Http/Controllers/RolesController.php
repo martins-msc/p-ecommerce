@@ -14,7 +14,11 @@ class RolesController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Roles/Index');
+        $roles = Role::paginate(5);
+        // return response()->json($roles);
+        return Inertia::render('Roles/Index', [
+            'roles' => $roles
+        ]);
     }
 
     /**
@@ -35,8 +39,9 @@ class RolesController extends Controller
         ]);
 
         $role = new Role();
-        $role->name = $request->name;
+        $role->name = strtoupper($request->name);
         $role->save();
+        return to_route('admin.roles.index');
     }
 
     /**
