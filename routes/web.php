@@ -34,5 +34,9 @@ Route::post('/admin/setting', [SettingController::class, 'store'])->name('admin.
 Route::get('/admin/roles', [RolesController::class, 'index'])->name('admin.roles.index')->middleware(['auth','verified']);
 Route::get('/admin/roles/create', [RolesController::class, 'create'])->name('admin.roles.create')->middleware(['auth', 'verified']);
 Route::post('/admin/roles', [RolesController::class, 'store'])->name('admin.roles.store')->middleware(['auth','verified']);
+Route::get('/admin/rol/{id}', [RolesController::class, 'show'])->name('admin.roles.show')->middleware(['auth','verified']);
+Route::get('/admin/rol/{id}/edit', [RolesController::class, 'edit'])->name('admin.roles.edit')->middleware(['auth','verified']);
+Route::put('/admin/rol/{id}', [RolesController::class, 'update'])->name('admin.roles.update')->middleware(['auth','verified']);
+Route::delete('/admin/rol/{id}', [RolesController::class, 'destroy'])->name('admin.roles.destroy')->middleware(['auth','verified']);
 
 require __DIR__.'/auth.php';

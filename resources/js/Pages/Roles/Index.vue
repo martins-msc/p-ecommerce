@@ -30,14 +30,19 @@
                                                 startIndexPag }}</td>
                                             <td>{{ role.name }}</td>
                                             <td class="text-center">
-                                                <button type="submit" class="btn btn-info rounded-pill me-1">
-                                                    <i class="bi bi-eye-fill"></i> Ver</button>
-                                                <button type="submit" class="btn btn-success rounded-pill me-1">
-                                                    <i class="bi bi-pencil-fill"></i> Editar</button>
-                                                <Link :href="route('admin.roles.index')"
-                                                    class="btn btn-danger rounded-pill me-1">
-                                                    <i class="bi bi-trash-fill"></i> Eliminar
+                                                <Link :href="route('admin.roles.show', role.id)" type="submit"
+                                                    class="btn btn-info rounded-pill me-1">
+                                                    <i class="bi bi-eye-fill"></i> Ver
                                                 </Link>
+                                                <Link :href="route('admin.roles.edit', role.id)" type="submit"
+                                                    class="btn btn-success rounded-pill me-1">
+                                                    <i class="bi bi-pencil-fill"></i> Editar
+                                                </Link>
+                                                <button type="submit" class="btn btn-danger rounded-pill me-1"
+                                                    @click="deleteRole(role.id)">
+                                                    <i class="bi bi-trash-fill"></i> Eliminar
+                                                </button>
+
                                             </td>
                                         </tr>
                                     </tbody>
@@ -54,7 +59,7 @@
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import TablePagination from '@/Components/TablePagination.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue'
 
 const props = defineProps({
@@ -62,4 +67,15 @@ const props = defineProps({
 });
 
 const startIndexPag = ref((props.roles.current_page - 1) * props.roles.per_page + 1);
+
+const deleteRole = (id) => {
+    if (confirm('¿Estás seguro de eliminar este rol?')) {
+        router.delete(route('admin.roles.destroy', id), {
+            preserveScroll: true, // Evita que la página salte arriba al borrar
+            onSuccess: () => {
+                // Opcional: mostrar notificación de éxito
+            }
+        });
+    }
+}
 </script>

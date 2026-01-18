@@ -1,7 +1,7 @@
 <template>
 
     <Head title="Index" />
-    <AdminLayout title="Creacion de un nuevo rol">
+    <AdminLayout :title="`Modificar rol: ${role.name}`">
         <!-- <hr> -->
         <section id="multiple-column-form">
             <div class="row match-height">
@@ -12,7 +12,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form @submit.prevent="storeRole" class="form">
+                                <form @submit.prevent="updateRole" class="form" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-12">
                                             <label for="name">Nombre del rol (*)</label>
@@ -30,7 +30,7 @@
                                     </div>
                                     <br>    
                                     <div class="col-12 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary me-1 mb-1">Registrar</button>
+                                        <button type="submit" class="btn btn-success me-1 mb-1">Actualizar</button>
                                         <Link :href="route('admin.roles.index')" class="btn btn-secondary me-1 mb-1">Cancelar</Link>
                                     </div>
                                 </form>
@@ -46,12 +46,15 @@
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head, useForm, Link } from '@inertiajs/vue3';
 
+const props = defineProps({
+    'role': Object
+});
 const form = useForm({
-    name: ''
+    name: props.role.name
 });
 
-const storeRole = () => {
-    form.post(route('admin.roles.store'), {
+const updateRole = () => {
+    form.put(route('admin.roles.update', props.role.id), {
         preserveScroll: true,
         onError: () => {
             // }

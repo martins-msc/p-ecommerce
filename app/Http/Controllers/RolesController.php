@@ -49,7 +49,10 @@ class RolesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $rol = Role::find($id);
+        return Inertia::render('Roles/Show',[
+            'rol' => $rol
+        ]);
     }
 
     /**
@@ -57,7 +60,10 @@ class RolesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $rol = Role::find($id);
+        return Inertia::render('Roles/Edit', [
+            'role' => $rol
+        ]);
     }
 
     /**
@@ -65,7 +71,13 @@ class RolesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|unique:roles,name,'.$id // exceptop el id porque es el mismo registro
+        ]);
+        $rol = Role::find($id);
+        $rol->name = strtoupper($request->name);
+        $rol->update();
+        return to_route('admin.roles.index');
     }
 
     /**
@@ -73,6 +85,8 @@ class RolesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $rol = Role::find($id);
+        $rol->delete();
+        return to_route('admin.roles.index');
     }
 }
