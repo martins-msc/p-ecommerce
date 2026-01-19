@@ -57,6 +57,14 @@ onMounted(() => {
                         </Link>
                     </li>
 
+                    <li class="sidebar-item" :class="{ active: route().current('admin.users.index') }"
+                        >
+                        <Link :href="route('admin.users.index')" class='sidebar-link'>
+                            <i class="bi bi-person-plus-fill"></i>
+                            <span>Usuarios</span>
+                        </Link>
+                    </li>
+
                     <li class="sidebar-title">Ajustes</li>
                     <li class="sidebar-item  " :class="{ active: route().current('admin.setting.index') }"
                         >

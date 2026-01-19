@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -31,6 +32,7 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->mi
 Route::get('/admin/setting', [SettingController::class, 'index'])->name('admin.setting.index')->middleware(['auth','verified']);
 Route::post('/admin/setting', [SettingController::class, 'store'])->name('admin.setting.store')->middleware(['auth', 'verified']);
 
+//roles
 Route::get('/admin/roles', [RolesController::class, 'index'])->name('admin.roles.index')->middleware(['auth','verified']);
 Route::get('/admin/roles/create', [RolesController::class, 'create'])->name('admin.roles.create')->middleware(['auth', 'verified']);
 Route::post('/admin/roles', [RolesController::class, 'store'])->name('admin.roles.store')->middleware(['auth','verified']);
@@ -38,5 +40,14 @@ Route::get('/admin/rol/{id}', [RolesController::class, 'show'])->name('admin.rol
 Route::get('/admin/rol/{id}/edit', [RolesController::class, 'edit'])->name('admin.roles.edit')->middleware(['auth','verified']);
 Route::put('/admin/rol/{id}', [RolesController::class, 'update'])->name('admin.roles.update')->middleware(['auth','verified']);
 Route::delete('/admin/rol/{id}', [RolesController::class, 'destroy'])->name('admin.roles.destroy')->middleware(['auth','verified']);
+
+//usuairo
+Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users.index')->middleware(['auth','verified']);
+Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.users.create')->middleware(['auth', 'verified']);
+Route::post('/admin/users', [UserController::class, 'store'])->name('admin.users.store')->middleware(['auth','verified']);
+Route::get('/admin/user/{id}', [UserController::class, 'show'])->name('admin.users.show')->middleware(['auth','verified']);
+Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit')->middleware(['auth','verified']);
+Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('admin.users.update')->middleware(['auth','verified']);
+Route::delete('/admin/user/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy')->middleware(['auth','verified']);
 
 require __DIR__.'/auth.php';
