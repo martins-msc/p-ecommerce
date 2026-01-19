@@ -42,7 +42,6 @@
                                                     @click="deleteRole(role.id)">
                                                     <i class="bi bi-trash-fill"></i> Eliminar
                                                 </button>
-
                                             </td>
                                         </tr>
                                     </tbody>
@@ -66,7 +65,7 @@ const props = defineProps({
     roles: Object,
 });
 
-const startIndexPag = ref((props.roles.current_page - 1) * props.roles.per_page + 1);
+var startIndexPag = ref((props.roles.current_page - 1) * props.roles.per_page + 1);
 
 const deleteRole = (id) => {
     if (confirm('¿Estás seguro de eliminar este rol?')) {
@@ -74,6 +73,7 @@ const deleteRole = (id) => {
             preserveScroll: true, // Evita que la página salte arriba al borrar
             onSuccess: () => {
                 // Opcional: mostrar notificación de éxito
+                startIndexPag.value = ((props.roles.current_page - 1) * props.roles.per_page + 1)
             }
         });
     }

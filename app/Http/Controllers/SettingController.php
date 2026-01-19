@@ -77,5 +77,8 @@ class SettingController extends Controller
         }
 
         $setting->save();
+        return to_route('admin.setting.index')
+            ->with("message", "Se guardo los cambios correctamente")
+            ->with("icon", "success");
     }
 }

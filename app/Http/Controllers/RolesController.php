@@ -34,6 +34,7 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
+        // session()->flash('success', 'Rol creado correctamente');   // Otra opcion para mostrar mensajes
         $request->validate([
             'name' => 'required|string|max:255|unique:roles,name'
         ]);
@@ -41,7 +42,9 @@ class RolesController extends Controller
         $role = new Role();
         $role->name = strtoupper($request->name);
         $role->save();
-        return to_route('admin.roles.index');
+        return to_route('admin.roles.index')
+            ->with("message", "Rol creado exitosamente")
+            ->with("icon", "success");
     }
 
     /**
@@ -50,7 +53,7 @@ class RolesController extends Controller
     public function show(string $id)
     {
         $rol = Role::find($id);
-        return Inertia::render('Roles/Show',[
+        return Inertia::render('Roles/Show', [
             'rol' => $rol
         ]);
     }
@@ -72,12 +75,14 @@ class RolesController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:roles,name,'.$id // exceptop el id porque es el mismo registro
+            'name' => 'required|string|max:255|unique:roles,name,' . $id // exceptop el id porque es el mismo registro
         ]);
         $rol = Role::find($id);
         $rol->name = strtoupper($request->name);
         $rol->update();
-        return to_route('admin.roles.index');
+        return to_route('admin.roles.index')
+            ->with("message", "Rol actualizado exitosamente")
+            ->with("icon", "success");
     }
 
     /**
@@ -87,6 +92,8 @@ class RolesController extends Controller
     {
         $rol = Role::find($id);
         $rol->delete();
-        return to_route('admin.roles.index');
+        return to_route('admin.roles.index')
+            ->with("message", "Rol eliminado exitosamente")
+            ->with("icon", "success");
     }
 }
