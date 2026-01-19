@@ -1,8 +1,11 @@
 <script setup>
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import logo from '../../template/assets/images/logo/logo.png';
+import { onMounted } from 'vue';
+import defaultLogo from '../../template/assets/images/logo/logo.png';
 
-import { Link } from '@inertiajs/vue3';
+const props = defineProps({
+    logo: String,
+    imageLogin: String,
+});
 </script>
 
 <template>
@@ -11,8 +14,9 @@ import { Link } from '@inertiajs/vue3';
         <div class="row h-100">
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
-                    <div class="auth-logo">
-                        <a href="index.html"><img :src="logo" alt="Logo"></a>
+                    <div> <!--class="auth-logo"  tenia esta clase-->
+                        <a href="index.html"><img :src="logo ? `/storage/${logo}` : defaultLogo" alt="Logo"
+                                style="width: 100px;"></a>
                     </div>
                     <slot />
 
@@ -20,7 +24,15 @@ import { Link } from '@inertiajs/vue3';
             </div>
             <div class="col-lg-7 d-none d-lg-block">
                 <div id="auth-right">
-
+                    <!-- para la imagen  -->
+                    <div :style="{
+                        backgroundImage: imageLogin ? `url('/storage/${imageLogin}')` : null,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        height: '100%',
+                        width: '100%'
+                    }"></div>
                 </div>
             </div>
         </div>

@@ -2,12 +2,15 @@
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
-defineProps({
+const props = defineProps({
     canResetPassword: {
         type: Boolean,
     },
     status: {
         type: String,
+    },
+    setting: {
+        type: Object
     },
 });
 
@@ -25,39 +28,13 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <GuestLayout :logo="setting?.logo" :imageLogin="setting?.image_login">
 
-        <Head title="Log in" />
+        <Head :title="`Log in - ${setting?.system_name}`" />
 
-        <!-- <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus
-                    autocomplete="username" />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required
-                    autocomplete="current-password" />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-
-        </form> -->
-        <!-- TEMPLATE -->
         <div>
-            <h1 class="auth-title">Iniciar sesion</h1>
-            <p class="auth-subtitle mb-5">Ingresa con tus datos</p>
+            <h1 class="auth-title">{{ setting?.system_name }}</h1>
+            <p class="auth-subtitle mb-5">Ingresa al sistema</p>
 
             <form @submit.prevent="submit">
                 <div class="form-group position-relative has-icon-left mb-4">
@@ -75,7 +52,7 @@ const submit = () => {
                     </div>
                 </div>
                 <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5"
-                    :class="{ 'opacity-25': form.processing }" :disabled="form.processing">Log in</button>
+                    :class="{ 'opacity-25': form.processing }" :disabled="form.processing">Acceso</button>
             </form>
             <div class="text-center mt-5 text-lg fs-4">
                 <p class="text-gray-600">No tienes una cuenta? <a :href="route('register')"

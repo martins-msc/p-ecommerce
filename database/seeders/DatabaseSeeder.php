@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Setting;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +17,30 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        User::create([
+            'name' => 'Super Admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('12345678'),
         ]);
+
+        Setting::create([
+            'system_name' => 'Martin SRL',
+            'description' => 'Tienda virtual de productos variados',
+            'branch_Store' => 'Matriz',
+            'address' => 'Av Siempre Viva 123',
+            'phone_number' => '32165487',
+            'email' => 'marrtin@gmail.com',
+            'logo' => 'logos/oAntdL85mfpkWVZbPA285fALaL0BrbiODLko4aEL.png',
+            'image_login' => 'login_images/7Iw8CHrgAUkcVvju8NtVa7k60Ky9VXUnrov1VQeS.jpg',
+            'currency' => 'BOB'
+        ]);
+
+        Role::create(['name' => 'SUPER ADMIN']);
+        Role::create(['name' => 'ADMINISTRADOR']);
+        Role::create(['name' => 'VENDEDOR']);
+        Role::create(['name' => 'CONTABILIDAD']);
+        Role::create(['name' => 'OPERADOR']);
+        Role::create(['name' => 'USUARIO']);
+        Role::create(['name' => 'CLIENTE']);
     }
 }
