@@ -50,7 +50,7 @@
                                             <tr v-for="(user, index) in users.data" :key="user.id">
                                                 <td class="text-bold-500" style="text-align: center;">{{ index +
                                                     startIndexPag }}</td>
-                                                <td>{{ user.roles }}</td>
+                                                <td>{{ user.roles[0].name }}</td>
                                                 <td>{{ user.name }}</td>
                                                 <td>{{ user.email }}</td>
                                                 <td class="text-center">
@@ -86,6 +86,7 @@ import TablePagination from '@/Components/TablePagination.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref, watch, computed } from 'vue'
 import debounce from 'lodash/debounce';
+import { confirmDelete } from '@/Composables/SweetAlertDelete';
 
 const props = defineProps({
     users: Object,
@@ -110,18 +111,27 @@ const clearSearch = () => {
     search.value = ''; // Al limpiar esto, el Watcher se activa solo
     startIndex();
 };
-const startIndex = () =>{
+const startIndex = () => {
     return startIndexPag.value = ((props.users.meta.current_page - 1) * props.users.meta.per_page + 1);
 }
 const deleteUser = (id) => {
-    if (confirm('¿Estás seguro de eliminar este rol?')) {
-        router.delete(route('admin.users.destroy', id), {
-            preserveScroll: true, // Evita que la página salte arriba al borrar
-            onSuccess: () => {
-                // Opcional: mostrar notificación de éxito
-                startIndex();
-            }
-        });
-    }
+    // usamos el composable
+    confirmDelete(
+        "Desea eliminar este registro",
+        () => {
+            // Esta es la función 'onConfirm' que pasamos como parámetro
+            router.delete(route('admin.users.destroy', id));
+            startIndex();
+        }
+    )
+    // if (confirm('¿Estás seguro de eliminar este usuario?')) {
+    //     router.delete(route('admin.users.destroy', id), {
+    //         preserveScroll: true, // Evita que la página salte arriba al borrar
+    //         onSuccess: () => {
+    //             // Opcional: mostrar notificación de éxito
+    //             
+    //         }
+    //     });
+    // }
 }
 </script>

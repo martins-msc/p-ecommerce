@@ -15,7 +15,7 @@
                                 <div class="row">
                                     <div class="col-md-12 col-12">
                                         <label for="role">Rol:</label>
-                                        <p><i class="bi bi-shield-fill-check"></i> {{ user.data.roles }}</p>
+                                        <p><i class="bi bi-shield-fill-check"></i> {{ user.data.roles[0].name }}</p>
                                     </div>
                                 </div>
                                 <div class="row">

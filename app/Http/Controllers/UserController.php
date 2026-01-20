@@ -19,13 +19,13 @@ class UserController extends Controller
         // dd($request->filter);
         $search = $request->get('search');
         $query = User::query();
-        if ($search){
+        if ($search) {
             $query->where('name', 'like', '%' . $search . '%')
-            ->orWhere('email', 'like', '%' . $search .'%');
+                ->orWhere('email', 'like', '%' . $search . '%');
         }
 
         $users = $query->with('roles')->paginate(5);
-        return Inertia::render('Users/Index',[
+        return Inertia::render('Users/Index', [
             'users' => UserResource::collection($users),
             'filters' => $request->only(['search']), // <--- Envía el filtro de vuelta
         ]);
@@ -37,7 +37,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all()->skip(1);
-        return Inertia::render('Users/Create',[
+        return Inertia::render('Users/Create', [
             'roles' => $roles
         ]);
     }
@@ -73,7 +73,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         // dd(new UserResource($user));
-        return Inertia::render('Users/Show',[
+        return Inertia::render('Users/Show', [
             'user' => new UserResource($user)
         ]);
     }
@@ -83,7 +83,12 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::find($id);
+        $roles = Role::all();
+        return Inertia::render('Users/Edit', [
+            'user' => new UserResource($user),
+            'roles' => $roles
+        ]);
     }
 
     /**
@@ -91,7 +96,25 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request, $id);
+        $request->validate([
+            'role' => 'required',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8|confirmed'
+        ]);
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->save();
+        $user->syncRoles($request->role);
+
+        return to_route('admin.users.index')
+            ->with("message", "Usuario actualizado exitosamente")
+            ->with("icon", "success");
     }
 
     /**
@@ -99,6 +122,13 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        $user->state = false;
+        $user->save();
+        $user->delete();
+
+        return to_route('admin.users.index')
+            ->with("message", "Usuario eliminado exitosamente")
+            ->with('icon', 'success');
     }
 }
