@@ -14,6 +14,28 @@
                             <div class="card-body">
                                 <form @submit.prevent="storeUser" class="form">
                                     <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <label for="role">Roles (*)</label>
+                                            <div class="form-group position-relative has-icon-left">
+
+                                                <select class="form-select form-control" id="role"
+                                                    :class="{ 'is-invalid': form.errors.role }"
+                                                    v-model="form.role">
+                                                    <option value="" disabled selected>-- Selecciona un rol --</option>
+                                                    <option v-for="item in roles" :key="item.id"
+                                                        :value="item.id">
+                                                        {{ item.name }}
+                                                    </option>
+                                                </select>
+                                                <div class="form-control-icon">
+                                                    <i class="bi bi-shield-fill-check"></i>
+                                                </div>
+                                            </div>
+                                            <p v-if="form.errors.role" class="text-sm text-danger">{{
+                                                form.errors.role }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-6">
                                             <label for="name">Nombre (*)</label>
                                             <div class="form-group position-relative has-icon-left">
@@ -60,7 +82,8 @@
                                             <div class="form-group position-relative has-icon-left">
                                                 <input type="password" class="form-control" name="password_confirmation"
                                                     :class="{ 'is-invalid': form.errors.password_confirmation }"
-                                                    placeholder="Confirmar contraseña" v-model="form.password_confirmation">
+                                                    placeholder="Confirmar contraseña"
+                                                    v-model="form.password_confirmation">
                                                 <div class="form-control-icon">
                                                     <i class="bi bi-shield-lock-fill"></i>
                                                 </div>
@@ -88,11 +111,15 @@
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head, useForm, Link } from '@inertiajs/vue3';
 
+const props = defineProps({
+    roles: Object
+})
 const form = useForm({
     name: '',
     email: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    role: ''
 });
 
 const storeUser = () => {

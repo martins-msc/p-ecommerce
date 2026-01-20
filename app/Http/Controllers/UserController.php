@@ -3,20 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(10);
+        // dd($request->filter);
+        $search = $request->get('search');
+        $query = User::query();
+        if ($search){
+            $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('email', 'like', '%' . $search .'%');
+        }
+
+        $users = $query->with('roles')->paginate(5);
         return Inertia::render('Users/Index',[
-            'users' => $users
+            'users' => UserResource::collection($users),
+            'filters' => $request->only(['search']), // <--- Envía el filtro de vuelta
         ]);
     }
 
@@ -25,7 +36,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Users/Create');
+        $roles = Role::all()->skip(1);
+        return Inertia::render('Users/Create',[
+            'roles' => $roles
+        ]);
     }
 
     /**
@@ -34,6 +48,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'role' => 'required',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed'
@@ -43,6 +58,8 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
+
+        $user->assignRole($request->role);
 
         return to_route('admin.users.index')
             ->with("message", "Usuario creado exitosamente")
@@ -54,7 +71,11 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::find($id);
+        // dd(new UserResource($user));
+        return Inertia::render('Users/Show',[
+            'user' => new UserResource($user)
+        ]);
     }
 
     /**

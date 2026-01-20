@@ -17,11 +17,19 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        Role::create(['name' => 'SUPER ADMIN']);
+        Role::create(['name' => 'ADMINISTRADOR']);
+        Role::create(['name' => 'VENDEDOR']);
+        Role::create(['name' => 'CONTABILIDAD']);
+        Role::create(['name' => 'OPERADOR']);
+        Role::create(['name' => 'USUARIO']);
+        Role::create(['name' => 'CLIENTE']);
+
         User::create([
             'name' => 'Martin sinka',
             'email' => 'admin@admin.com',
             'password' => bcrypt('12345678'),
-        ]);
+        ])->assignRole('SUPER ADMIN');
 
         Setting::create([
             'system_name' => 'Martin SRL',
@@ -35,12 +43,5 @@ class DatabaseSeeder extends Seeder
             'currency' => 'BOB'
         ]);
 
-        Role::create(['name' => 'SUPER ADMIN']);
-        Role::create(['name' => 'ADMINISTRADOR']);
-        Role::create(['name' => 'VENDEDOR']);
-        Role::create(['name' => 'CONTABILIDAD']);
-        Role::create(['name' => 'OPERADOR']);
-        Role::create(['name' => 'USUARIO']);
-        Role::create(['name' => 'CLIENTE']);
     }
 }
