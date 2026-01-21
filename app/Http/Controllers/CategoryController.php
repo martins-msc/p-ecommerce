@@ -25,7 +25,7 @@ class CategoryController extends Controller
         $categories = $query->paginate(5);
         return Inertia::render('Categories/Index', [
             'categories' => CategoryResource::collection($categories),
-            'filters' => $request->only(['search']), 
+            'filters' => $request->only(['search']),
         ]);
     }
 
@@ -61,10 +61,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(string $id)
     {
         $category = Category::findOrfail($id);
-        return Inertia::render('Categories/Show',[
+        return Inertia::render('Categories/Show', [
             'category' => new CategoryResource($category)
         ]);
     }
@@ -72,24 +72,45 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(string $id)
     {
-        //
+        $category = Category::findorFail($id);
+        return Inertia::render('Categories/Edit', [
+            'category' => new CategoryResource($category),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories,slug,'.$id,
+            'description' => 'nullable|string'
+        ]);
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->slug = $request->slug;
+        $category->description = $request->description;
+        $category->save();
+
+        return to_route('admin.categories.index')
+            ->with("message", "Categoria actualizado exitosamente")
+            ->with("icon", "success");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return to_route('admin.categories.index')
+            ->with("message", "Categoria eliminado exitosamente")
+            ->with("icon", "success");
     }
 }

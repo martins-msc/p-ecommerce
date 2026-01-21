@@ -2,30 +2,39 @@
 // import AdminLayout from '@/Layouts/AdminLayout.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3'
 
+const props = defineProps({
+    totalRoles: Number,
+    totalUsers: Number
+})
 </script>
 
 <template>
 
     <Head title="Dashboard" />
 
-    <AdminLayout title="Dashboard">
+    <AdminLayout :title="`Bienvenido: ${$page.props.auth.user.name}`">
         <div class="page-content">
             <section class="row">
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-6 col-lg-3 col-md-6">
+                        <div class="col-6 col-lg-3 col-md-4">
                             <div class="card">
                                 <div class="card-body px-3 py-4-5">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <div class="stats-icon purple">
-                                                <i class="iconly-boldShow"></i>
-                                            </div>
+                                            <Link :href="route('admin.roles.index')">
+                                                <div class="stats-icon purple">
+                                                    <i class="" style="margin-top: auto;">
+                                                        <i class="bi bi-shield-fill-check"></i>
+                                                    </i>
+                                                </div>
+                                            </Link>
                                         </div>
                                         <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold">Profile Viewrers</h6>
-                                            <h6 class="font-extrabold mb-0">112.000</h6>
+                                            <h6 class="text-muted font-semibold">Roles registrados</h6>
+                                            <h6 class="font-extrabold mb-0">{{ totalRoles }} roles</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -36,13 +45,17 @@ import { Head } from '@inertiajs/vue3';
                                 <div class="card-body px-3 py-4-5">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <div class="stats-icon blue">
-                                                <i class="iconly-boldProfile"></i>
-                                            </div>
+                                            <Link :href="route('admin.users.index')">
+                                                <div class="stats-icon blue">
+                                                    <i class="" style="margin-top: auto;">
+                                                        <i class="bi bi-person-plus-fill"></i>
+                                                    </i>
+                                                </div>
+                                            </Link>
                                         </div>
                                         <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold">Followers</h6>
-                                            <h6 class="font-extrabold mb-0">183.000</h6>
+                                            <h6 class="text-muted font-semibold">Usuarios registrados</h6>
+                                            <h6 class="font-extrabold mb-0">{{ totalUsers }} usuarios</h6>
                                         </div>
                                     </div>
                                 </div>

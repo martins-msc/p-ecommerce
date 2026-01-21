@@ -33,7 +33,21 @@ onMounted(() => {
         </header>
 
         <div class="page-heading">
-            <h3>{{ title }} </h3>
+            <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>{{ title }}</h3>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="">Rol del usuario</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ $page.props.auth.user.roles[0] }}</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
         </div>
 
         <!-- Main Content admin user -->
