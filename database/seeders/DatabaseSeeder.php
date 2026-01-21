@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Setting;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -43,5 +44,6 @@ class DatabaseSeeder extends Seeder
             'currency' => 'BOB'
         ]);
 
+        Category::factory(15)->create();
     }
 }

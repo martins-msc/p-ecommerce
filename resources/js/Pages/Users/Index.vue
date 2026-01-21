@@ -36,7 +36,7 @@
                                 </div>
                                 <!-- table hover -->
                                 <div class="table-responsive">
-                                    <table class="table table-hover mb-0 table-striped table-sm">
+                                    <table class="table table-hover mb-0 table-striped">
                                         <thead>
                                             <tr>
                                                 <th style="text-align: center;">Nro</th>
@@ -60,23 +60,23 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <div v-if="user.state">
-                                                        <Link :href="route('admin.users.show', user.id)" type="submit"
+                                                        <Link :href="route('admin.users.show', user.id)"
                                                             class="btn btn-info rounded-pill me-1">
                                                             <i class="bi bi-eye-fill"></i> Ver
                                                         </Link>
-                                                        <Link :href="route('admin.users.edit', user.id)" type="submit"
+                                                        <Link :href="route('admin.users.edit', user.id)"
                                                             class="btn btn-success rounded-pill me-1">
                                                             <i class="bi bi-pencil-fill"></i> Editar
                                                         </Link>
-                                                        <button type="submit" class="btn btn-danger rounded-pill me-1"
+                                                        <button type="button" class="btn btn-danger rounded-pill"
                                                             @click="deleteUser(user.id)">
                                                             <i class="bi bi-trash-fill"></i> Eliminar
                                                         </button>
                                                     </div>
                                                     <div v-else>
-                                                        <button type="submit" class="btn btn-warning rounded-pill me-1"
+                                                        <button type="button" class="btn btn-warning rounded-pill me-1"
                                                             @click="restoreUser(user.id)">
-                                                            <i class="bi bi-arrow-clockwise"></i> Editar
+                                                            <i class="bi bi-arrow-clockwise"></i> Restaurar
                                                         </button>
                                                     </div>
                                                 </td>
