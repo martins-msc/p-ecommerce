@@ -43,6 +43,7 @@
                                                 <th>Rol del usuario</th>
                                                 <th>Nombre del usuario</th>
                                                 <th>Email</th>
+                                                <th>Estado</th>
                                                 <th style="text-align: center;">Acciones</th>
                                             </tr>
                                         </thead>
@@ -53,19 +54,31 @@
                                                 <td>{{ user.roles[0].name }}</td>
                                                 <td>{{ user.name }}</td>
                                                 <td>{{ user.email }}</td>
+                                                <td>
+                                                    <span v-if="user.state" class="badge bg-success">Activo</span>
+                                                    <span v-else class="badge bg-danger">Inactivo</span>
+                                                </td>
                                                 <td class="text-center">
-                                                    <Link :href="route('admin.users.show', user.id)" type="submit"
-                                                        class="btn btn-info rounded-pill me-1">
-                                                        <i class="bi bi-eye-fill"></i> Ver
-                                                    </Link>
-                                                    <Link :href="route('admin.users.edit', user.id)" type="submit"
-                                                        class="btn btn-success rounded-pill me-1">
-                                                        <i class="bi bi-pencil-fill"></i> Editar
-                                                    </Link>
-                                                    <button type="submit" class="btn btn-danger rounded-pill me-1"
-                                                        @click="deleteUser(user.id)">
-                                                        <i class="bi bi-trash-fill"></i> Eliminar
-                                                    </button>
+                                                    <div v-if="user.state">
+                                                        <Link :href="route('admin.users.show', user.id)" type="submit"
+                                                            class="btn btn-info rounded-pill me-1">
+                                                            <i class="bi bi-eye-fill"></i> Ver
+                                                        </Link>
+                                                        <Link :href="route('admin.users.edit', user.id)" type="submit"
+                                                            class="btn btn-success rounded-pill me-1">
+                                                            <i class="bi bi-pencil-fill"></i> Editar
+                                                        </Link>
+                                                        <button type="submit" class="btn btn-danger rounded-pill me-1"
+                                                            @click="deleteUser(user.id)">
+                                                            <i class="bi bi-trash-fill"></i> Eliminar
+                                                        </button>
+                                                    </div>
+                                                    <div v-else>
+                                                        <button type="submit" class="btn btn-warning rounded-pill me-1"
+                                                            @click="restoreUser(user.id)">
+                                                            <i class="bi bi-arrow-clockwise"></i> Editar
+                                                        </button>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -86,7 +99,7 @@ import TablePagination from '@/Components/TablePagination.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { ref, watch, computed } from 'vue'
 import debounce from 'lodash/debounce';
-import { confirmDelete } from '@/Composables/SweetAlertDelete';
+import { confirmAction } from '@/Composables/SweetAlertDelete';
 
 const props = defineProps({
     users: Object,
@@ -116,8 +129,9 @@ const startIndex = () => {
 }
 const deleteUser = (id) => {
     // usamos el composable
-    confirmDelete(
+    confirmAction(
         "Desea eliminar este registro",
+        "Eliminar",
         () => {
             // Esta es la función 'onConfirm' que pasamos como parámetro
             router.delete(route('admin.users.destroy', id));
@@ -133,5 +147,15 @@ const deleteUser = (id) => {
     //         }
     //     });
     // }
+}
+const restoreUser = (id) => {
+    confirmAction(
+        'Desea restaurar este registro',
+        'Restaurar',
+        () => {
+            router.post(route('admin.users.restore', id));
+            startIndex();
+        }
+    )
 }
 </script>

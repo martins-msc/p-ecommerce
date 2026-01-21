@@ -49,5 +49,6 @@ Route::get('/admin/user/{id}', [UserController::class, 'show'])->name('admin.use
 Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit')->middleware(['auth','verified']);
 Route::put('/admin/user/{id}', [UserController::class, 'update'])->name('admin.users.update')->middleware(['auth','verified']);
 Route::delete('/admin/user/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy')->middleware(['auth','verified']);
+Route::post('/admin/user/{id}/restore', [UserController::class, 'restore'])->name('admin.users.restore')->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

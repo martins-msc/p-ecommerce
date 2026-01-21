@@ -24,6 +24,7 @@ class UserResource extends JsonResource
                 'id' => (int)$role->id,
                 'name' => $role->name,
             ]),
+            'state' => (int)$this->state,
             'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
 
             // // La fecha solo se enviará si la ruta es 'admin.users.show' o 'index'

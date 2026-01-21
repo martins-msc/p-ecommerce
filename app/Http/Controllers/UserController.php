@@ -18,7 +18,9 @@ class UserController extends Controller
     {
         // dd($request->filter);
         $search = $request->get('search');
-        $query = User::query();
+        $query = User::whereDoesntHave('roles', function ($q) {
+            $q->where('name', 'SUPER ADMIN');
+        })->withTrashed();
         if ($search) {
             $query->where('name', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%');
@@ -129,6 +131,18 @@ class UserController extends Controller
 
         return to_route('admin.users.index')
             ->with("message", "Usuario eliminado exitosamente")
+            ->with('icon', 'success');
+    }
+
+    public function restore(string $id)
+    {
+        $user = User::withTrashed()->find($id);;
+        $user->restore();
+        $user->state = true;
+        $user->save();
+
+        return to_route('admin.users.index')
+            ->with("message", "Usuario restaurado exitosamente")
             ->with('icon', 'success');
     }
 }
