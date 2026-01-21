@@ -34,7 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Categories/Create');
     }
 
     /**
@@ -42,15 +42,31 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories,slug',
+            'description' => 'nullable|string'
+        ]);
+        $category = new Category();
+        $category->name = $request->name;
+        $category->slug = $request->slug;
+        $category->description = $request->description;
+        $category->save();
+
+        return to_route('admin.categories.index')
+            ->with("message", "Categoria creado exitosamente")
+            ->with("icon", "success");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $category = Category::findOrfail($id);
+        return Inertia::render('Categories/Show',[
+            'category' => new CategoryResource($category)
+        ]);
     }
 
     /**
