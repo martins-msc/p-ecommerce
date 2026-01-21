@@ -1,0 +1,30 @@
+Table categories {
+    id int [pk, increment]
+    name varchar
+    slug varchar [unique]
+    description text
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table products {
+    id int [pk, increment]
+    category_id int [ref: > categories.id]
+    name varchar
+    code varchar [unique]
+    short_description text
+    long_description text
+    purchase_price decimal(10,2)
+    sale_price decimal(10,2)
+    stock int
+    created_at timestamp
+    updated_at timestamp
+}
+
+Table product_images {
+    id int [pk, increment]
+    product_id int [ref: > products.id]
+    image varchar
+    created_at timestamp
+    updated_at timestamp
+}
