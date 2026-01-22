@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
@@ -59,6 +60,14 @@ Route::get('/admin/category/{id}', [CategoryController::class, 'show'])->name('a
 Route::get('/admin/category/{id}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit')->middleware(['auth','verified']);
 Route::put('/admin/category/{id}', [CategoryController::class, 'update'])->name('admin.categories.update')->middleware(['auth','verified']);
 Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy')->middleware(['auth','verified']);
+//products
+Route::get('/admin/products', [ProductController::class, 'index'])->name('admin.products.index')->middleware(['auth','verified']);
+Route::get('/admin/products/create', [ProductController::class, 'create'])->name('admin.products.create')->middleware(['auth', 'verified']);
+Route::post('/admin/products', [ProductController::class, 'store'])->name('admin.products.store')->middleware(['auth','verified']);
+Route::get('/admin/product/{id}', [ProductController::class, 'show'])->name('admin.products.show')->middleware(['auth','verified']);
+Route::get('/admin/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.products.edit')->middleware(['auth','verified']);
+Route::put('/admin/product/{id}', [ProductController::class, 'update'])->name('admin.products.update')->middleware(['auth','verified']);
+Route::delete('/admin/product/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy')->middleware(['auth','verified']);
 
 
 require __DIR__.'/auth.php';

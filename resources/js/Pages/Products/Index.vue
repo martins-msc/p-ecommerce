@@ -1,15 +1,15 @@
 <template>
 
     <Head title="Index" />
-    <AdminLayout title="Listado de categorias">
+    <AdminLayout title="Listado de productos">
         <!-- <hr> -->
         <section class="section">
             <div class="row" id="table-hover-row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Categorias registrados
-                                <Link :href="route('admin.categories.create')" class="btn btn-primary rounded-pill"
+                            <h4 class="card-title">Productos registrados
+                                <Link :href="route('admin.products.create')" class="btn btn-primary rounded-pill"
                                     style="float: right"><i class="bi bi-plus-lg"></i> Crear nuevo</Link>
                             </h4>
                         </div>
@@ -40,30 +40,38 @@
                                         <thead>
                                             <tr>
                                                 <th style="text-align: center;">Nro</th>
+                                                <th>Categoria</th>
                                                 <th>Nombre</th>
-                                                <th>Slug</th>
-                                                <th>Descripcion</th>
+                                                <th>Codigo</th>
+                                                <th>Descripcion corta</th>
+                                                <th>Precio de compra</th>
+                                                <th>Precio de venta</th>
+                                                <th>Stock</th>
                                                 <th style="text-align: center;">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="(category, index) in categories.data" :key="category.id">
+                                            <tr v-for="(product, index) in products.data" :key="product.id">
                                                 <td class="text-bold-500" style="text-align: center;">{{ index +
                                                     startIndexPag }}</td>
-                                                <td>{{ category.name }}</td>
-                                                <td>{{ category.slug }}</td>
-                                                <td>{{ category.description }}</td>
+                                                <td>{{ product.category_id }}</td>
+                                                <td>{{ product.name }}</td>
+                                                <td>{{ product.code }}</td>
+                                                <td>{{ product.short_description }}</td>
+                                                <td>{{ product.purchase_price }}</td>
+                                                <td>{{ product.sale_price }}</td>
+                                                <td>{{ product.stock }}</td>
                                                 <td class="text-center text-nowrap">
-                                                    <Link :href="route('admin.categories.show', category.id)"
+                                                    <Link :href="route('admin.products.show', product.id)"
                                                         class="btn btn-info rounded-pill btn-sm me-1">
                                                         <i class="bi bi-eye-fill"></i> Ver
                                                     </Link>
-                                                    <Link :href="route('admin.categories.edit', category.id)"
+                                                    <Link :href="route('admin.products.edit', product.id)"
                                                         class="btn btn-success rounded-pill btn-sm me-1">
                                                         <i class="bi bi-pencil-fill"></i> Editar
                                                     </Link>
                                                     <button type="button" class="btn btn-danger rounded-pill btn-sm"
-                                                        @click="deleteCategory(category.id)">
+                                                        @click="deleteproduct(product.id)">
                                                         <i class="bi bi-trash-fill"></i> Eliminar
                                                     </button>
                                                 </td>
@@ -73,7 +81,7 @@
                                 </div>
                             </div>
                         </div>
-                        <TablePagination :elements=categories.meta />
+                        <TablePagination :elements=products.meta />
                     </div>
                 </div>
             </div>
@@ -89,19 +97,19 @@ import debounce from 'lodash/debounce';
 import { confirmAction } from '@/Composables/SweetAlertDelete';
 
 const props = defineProps({
-    categories: Object,
+    products: Object,
     filters: Object
 });
 
 const startIndexPag = computed(() => {
-    const meta = props.categories.meta;
+    const meta = props.products.meta;
     return ((meta.current_page - 1) * meta.per_page + 1);
 });
 const search = ref(props.filters.search || '');
 
 watch(search, debounce((value) => {
     router.get(
-        route('admin.categories.index'),
+        route('admin.products.index'),
         { search: value },
         { preserveState: true, replace: true }
     );
@@ -110,13 +118,13 @@ watch(search, debounce((value) => {
 const clearSearch = () => {
     search.value = '';
 };
-const deleteCategory = (id) => {
+const deleteproduct = (id) => {
     // usamos el composable
     confirmAction(
         "Desea eliminar este registro",
         "Eliminar",
         () => {
-            router.delete(route('admin.categories.destroy', id));
+            router.delete(route('admin.products.destroy', id));
         }
     )
 }

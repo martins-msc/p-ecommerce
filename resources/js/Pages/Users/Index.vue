@@ -107,7 +107,8 @@ const props = defineProps({
 });
 
 const startIndexPag = computed(() => {
-    return startIndex();
+    const meta = props.users.meta;
+    return ((meta.current_page - 1) * meta.per_page + 1);
 });
 const search = ref(props.filters.search || '');
 
@@ -117,16 +118,11 @@ watch(search, debounce((value) => {
         { search: value },
         { preserveState: true, replace: true }
     );
-    startIndex();
 }, 300)); // Esperra 300ms despues de que el usuario deja de escribir
 
 const clearSearch = () => {
     search.value = ''; // Al limpiar esto, el Watcher se activa solo
-    startIndex();
 };
-const startIndex = () => {
-    return startIndexPag.value = ((props.users.meta.current_page - 1) * props.users.meta.per_page + 1);
-}
 const deleteUser = (id) => {
     // usamos el composable
     confirmAction(
@@ -135,7 +131,7 @@ const deleteUser = (id) => {
         () => {
             // Esta es la función 'onConfirm' que pasamos como parámetro
             router.delete(route('admin.users.destroy', id));
-            startIndex();
+            // startIndex();
         }
     )
     // if (confirm('¿Estás seguro de eliminar este usuario?')) {
@@ -154,7 +150,6 @@ const restoreUser = (id) => {
         'Restaurar',
         () => {
             router.post(route('admin.users.restore', id));
-            startIndex();
         }
     )
 }
