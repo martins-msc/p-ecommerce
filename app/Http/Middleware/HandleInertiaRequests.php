@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -29,6 +30,8 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        // Obtenemos la configuración (usamos first() para traer el único registro)
+        $setting = Setting::first();
         return [
             ...parent::share($request),
             'auth' => [
@@ -43,6 +46,10 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn() => $request->session()->get('message'),
                 'icon' => fn() => $request->session()->get('icon'),
+            ],
+            'app_settings' => [
+                'name' => $setting->system_name ?? 'Mi sistema',
+                'logo' => $setting->logo ? asset('storage/' . $setting->logo) : null,
             ],
         ];
     }

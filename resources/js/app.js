@@ -30,7 +30,14 @@ import 'aos/dist/aos.css';
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    // title: (title) => `${title} - ${appName}`, /// primera opcion llama desde el env
+    title: (title) => {
+        // Accedemos a los datos que Laravel acaba de enviar en la carga inicial
+        const page = JSON.parse(document.getElementById('app').dataset.page);
+        const dynamicName = page.props.app_settings?.name || 'Cargando...';
+        
+        return title ? `${title} - ${dynamicName}` : dynamicName;
+    },
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.vue`,
