@@ -6,7 +6,8 @@ use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
-use GuzzleHttp\Handler\Proxy;
+use App\Models\ProductImages;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -88,6 +89,44 @@ class ProductController extends Controller
         ]);
     }
 
+    public function images (string $id)
+    {
+        $product = Product::findOrFail($id);
+        return Inertia::render('Products/Images',[
+            'product' => new ProductResource($product)
+        ]);
+    }
+
+    public function uploadImage(Request $request, string $id)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        $product = Product::findOrFail($id);
+
+        $productImage = new ProductImages();
+        $productImage->product_id = $product->id;
+        $productImage->image = $request->file('image')->store('products', 'public');
+        $productImage->save();
+
+        return to_route('admin.products.images', $product->id)
+            ->with('message', 'Imagen subida exitosamente' )
+            ->with('icon', 'success');
+    }
+
+    public function deleteImage(string $id)
+    {
+        $productImage = ProductImages::findOrFail($id);
+        $product_id = $productImage->product_id;
+        if ($productImage->image && Storage::disk('public')->exists($productImage->image)){
+            Storage::disk('public')->delete($productImage->image);
+        }
+        $productImage->delete();
+
+        return to_route('admin.products.images', $product_id)
+            ->with('message', 'Imagen eliminada exitosamente' )
+            ->with('icon', 'success');
+    }
     /**
      * Show the form for editing the specified resource.
      */

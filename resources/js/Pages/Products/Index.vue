@@ -66,6 +66,10 @@
                                                         class="btn btn-info rounded-pill btn-sm me-1">
                                                         <i class="bi bi-eye-fill"></i> Ver
                                                     </Link>
+                                                    <Link :href="route('admin.products.images', product.id)"
+                                                        class="btn btn-warning rounded-pill btn-sm me-1">
+                                                        <i class="bi bi-image-fill"></i> Imgs
+                                                    </Link>
                                                     <Link :href="route('admin.products.edit', product.id)"
                                                         class="btn btn-success rounded-pill btn-sm me-1">
                                                         <i class="bi bi-pencil-fill"></i> Editar

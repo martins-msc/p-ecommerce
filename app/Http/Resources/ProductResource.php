@@ -14,12 +14,12 @@ class ProductResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-         return [
+        return [
             'id' => $this->id,
             'category' => [
                 'id' => $this->category->id,
                 'name' => $this->category->name,
-                ],
+            ],
             'name' => $this->name,
             'code' => $this->code,
             'short_description' => $this->short_description,
@@ -27,6 +27,9 @@ class ProductResource extends JsonResource
             'purchase_price' => $this->purchase_price,
             'sale_price' => $this->sale_price,
             'stock' => $this->stock,
+            'images' => $this->when($request->routeIs('admin.products.images', 'admin.products.show'), function () {
+                return $this->images; // O Resource de imágenes
+            }),
             'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
         ];
     }
