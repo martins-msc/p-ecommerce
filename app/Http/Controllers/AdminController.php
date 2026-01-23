@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,10 +18,14 @@ class AdminController extends Controller
         $totalUsers = User::whereDoesntHave('roles', function ($query) {
             $query->where('name', 'SUPER ADMIN');
         })->count();
+        $totalCategories = Category::count();
+        $totalProducts = Product::count();
         // dd($totalUsers);
         return Inertia::render('Dashboard',[
             'totalRoles' => $totalRoles,
-            'totalUsers' => $totalUsers
+            'totalUsers' => $totalUsers,
+            'totalCategories' => $totalCategories,
+            'totalProducts' => $totalProducts,
         ]);
     }
 }

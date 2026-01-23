@@ -6,7 +6,9 @@ import { Link } from '@inertiajs/vue3'
 
 const props = defineProps({
     totalRoles: Number,
-    totalUsers: Number
+    totalUsers: Number,
+    totalCategories: Number,
+    totalProducts: Number,
 })
 </script>
 
@@ -66,13 +68,17 @@ const props = defineProps({
                                 <div class="card-body px-3 py-4-5">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <div class="stats-icon green">
-                                                <i class="iconly-boldAdd-User"></i>
-                                            </div>
+                                            <Link :href="route('admin.categories.index')">
+                                                <div class="stats-icon green">
+                                                    <i class="" style="margin-top: auto;">
+                                                        <i class="bi bi-tags-fill"></i>
+                                                    </i>
+                                                </div>
+                                            </Link>
                                         </div>
                                         <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold">Following</h6>
-                                            <h6 class="font-extrabold mb-0">80.000</h6>
+                                            <h6 class="text-muted font-semibold">Categorias registrados</h6>
+                                            <h6 class="font-extrabold mb-0">{{ totalCategories }} registrados</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -83,13 +89,17 @@ const props = defineProps({
                                 <div class="card-body px-3 py-4-5">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <div class="stats-icon red">
-                                                <i class="iconly-boldBookmark"></i>
-                                            </div>
+                                            <Link :href="route('admin.products.index')">
+                                                <div class="stats-icon red">
+                                                    <i class="" style="margin-top: auto;">
+                                                        <i class="bi bi-box-seam-fill"></i>
+                                                    </i>
+                                                </div>
+                                            </Link>
                                         </div>
                                         <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold">Saved Post</h6>
-                                            <h6 class="font-extrabold mb-0">112</h6>
+                                            <h6 class="text-muted font-semibold">Productos registrados</h6>
+                                            <h6 class="font-extrabold mb-0">{{ totalProducts }}</h6>
                                         </div>
                                     </div>
                                 </div>
