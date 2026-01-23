@@ -10,6 +10,21 @@
 @import "../template/assets/vendors/iconly/bold.css";
 @import "../template/assets/vendors/perfect-scrollbar/perfect-scrollbar.css";
 @import "../template/assets/vendors/bootstrap-icons/bootstrap-icons.css";
+
+/* // template landing page */
+/* @import '../templateLandingPage/img/favicon.png';
+@import '../templateLandingPage/img/apple-touch-icon.png'; */
+
+@import "../templateLandingPage/vendor/bootstrap/css/bootstrap.min.css";
+@import "../templateLandingPage/vendor/bootstrap-icons/bootstrap-icons.css";
+@import "../templateLandingPage/vendor/swiper/swiper-bundle.min.css";
+/* @import "../templateLandingPage/vendor/aos/aos.css"; */
+@import "../templateLandingPage/vendor/glightbox/css/glightbox.min.css";
+@import "../templateLandingPage/vendor/drift-zoom/drift-basic.css";
+
+ 
+@import "../templateLandingPage/css/main.css";
+
 body {
   background-color: #e9f1ff !important; /* Usa !important para forzar tu color */
 }

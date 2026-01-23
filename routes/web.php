@@ -10,19 +10,20 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WebController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+//routes for the web
+Route::get('/', [WebController::class, 'index'])->name('web.index');
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+// routes for the admin
 Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard')->middleware(['auth', 'verified']);
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -72,5 +73,7 @@ Route::get('/admin/product/{id}/edit', [ProductController::class, 'edit'])->name
 Route::put('/admin/product/{id}', [ProductController::class, 'update'])->name('admin.products.update')->middleware(['auth','verified']);
 Route::delete('/admin/product/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy')->middleware(['auth','verified']);
 
+
+//Routes for the web
 
 require __DIR__.'/auth.php';
