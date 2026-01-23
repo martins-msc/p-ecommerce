@@ -58,9 +58,9 @@
                                                 <td>{{ product.name }}</td>
                                                 <td>{{ product.code }}</td>
                                                 <td>{{ product.short_description }}</td>
-                                                <td>{{ product.purchase_price }}</td>
-                                                <td>{{ product.sale_price }}</td>
-                                                <td>{{ product.stock }}</td>
+                                                <td>{{ currency[0]}} {{ product.purchase_price }}</td>
+                                                <td>{{ currency[0]}} {{ product.sale_price }}</td>
+                                                <td style="text-align: center;">{{ product.stock }}</td>
                                                 <td class="text-center text-nowrap">
                                                     <Link :href="route('admin.products.show', product.id)"
                                                         class="btn btn-info rounded-pill btn-sm me-1">
@@ -102,7 +102,8 @@ import { confirmAction } from '@/Composables/SweetAlertDelete';
 
 const props = defineProps({
     products: Object,
-    filters: Object
+    filters: Object,
+    currency: Array
 });
 
 const startIndexPag = computed(() => {

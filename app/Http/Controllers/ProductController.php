@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\ProductImages;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -18,6 +19,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $currency = Setting::first()->pluck('currency');
         $search = $request->get('search');
         $query = Product::query();
         if ($search) {
@@ -32,6 +34,7 @@ class ProductController extends Controller
         return Inertia::render('Products/Index', [
             'products' => ProductResource::collection($products),
             'filters' => $request->only(['search']),
+            'currency' => $currency,
         ]);
     }
 
@@ -130,24 +133,64 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        return Inertia::render('Products/Edit',[
+            'product' => $product,
+            'categories' => $categories
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:100|unique:products,code,'.$id,
+            'short_description' => 'required|string|max:500',
+            'long_description' => 'required|string',
+            'purchase_price' => 'required|numeric|min:0',
+            'sale_price' => 'required|numeric|min:0',
+            'stock' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $product = Product::findOrFail($id);
+        $product->name = $request->name;
+        $product->code = $request->code;
+        $product->short_description = $request->short_description;
+        $product->long_description = $request->long_description;
+        $product->purchase_price = $request->purchase_price;
+        $product->sale_price = $request->sale_price;
+        $product->stock = $request->stock;
+        $product->category_id = $request->category_id;
+        $product->save();
+
+        return to_route('admin.products.index')
+            ->with('message', 'Producto actualizado exitosamente' )
+            ->with('icon', 'success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        foreach ($product->images as $image) {
+            if ($image->image && Storage::disk('public')->exists($image->image)) {
+                Storage::disk('public')->delete($image->image);
+                $image->delete();
+            }
+        }
+        $product->delete();
+
+        return to_route('admin.products.index')
+            ->with('message', 'Producto eliminado exitosamente')
+            ->with('icon', 'success');
     }
 }

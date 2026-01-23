@@ -108,7 +108,7 @@
                                                             <option value="" disabled selected>-- Selecciona una divisa
                                                                 --</option>
                                                             <option v-for="item in currency" :key="item.symbol"
-                                                                :value="item.code">
+                                                                :value="item.symbol">
                                                                 {{ item.name }} ({{ item.symbol }})
                                                             </option>
                                                         </select>
