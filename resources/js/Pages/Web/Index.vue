@@ -1,70 +1,6 @@
 <template>
     <div>
         <header id="header" class="header sticky-top">
-            <!-- Top Bar -->
-            <div class="top-bar py-2">
-                <div class="container-fluid container-xl">
-                    <div class="row align-items-center">
-                        <div class="col-lg-4 d-none d-lg-flex">
-                            <div class="top-bar-item">
-                                <i class="bi bi-telephone-fill me-2"></i>
-                                <span>Need help? Call us: </span>
-                                <a href="tel:+1234567890">+1 (234) 567-890</a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-12 text-center">
-                            <div class="announcement-slider swiper init-swiper">
-                                <!-- <script type="application/json" class="swiper-config">
-                {
-                  "loop": true,
-                  "speed": 600,
-                  "autoplay": {
-                    "delay": 5000
-                  },
-                  "slidesPerView": 1,
-                  "direction": "vertical",
-                  "effect": "slide"
-                }
-              </script> -->
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">🚚 Free shipping on orders over $50</div>
-                                    <div class="swiper-slide">💰 30 days money back guarantee.</div>
-                                    <div class="swiper-slide">🎁 20% off on your first order</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 d-none d-lg-block">
-                            <div class="d-flex justify-content-end">
-                                <div class="top-bar-item dropdown me-3">
-                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
-                                        <i class="bi bi-translate me-2"></i>EN
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#"><i
-                                                    class="bi bi-check2 me-2 selected-icon"></i>English</a></li>
-                                        <li><a class="dropdown-item" href="#">Español</a></li>
-                                        <li><a class="dropdown-item" href="#">Français</a></li>
-                                        <li><a class="dropdown-item" href="#">Deutsch</a></li>
-                                    </ul>
-                                </div>
-                                <div class="top-bar-item dropdown">
-                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
-                                        <i class="bi bi-currency-dollar me-2"></i>USD
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#"><i
-                                                    class="bi bi-check2 me-2 selected-icon"></i>USD</a></li>
-                                        <li><a class="dropdown-item" href="#">EUR</a></li>
-                                        <li><a class="dropdown-item" href="#">GBP</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Main Header -->
             <div class="main-header">
@@ -75,13 +11,13 @@
                         <a href="index.html" class="logo d-flex align-items-center">
                             <!-- Uncomment the line below if you also wish to use an image logo -->
                             <!-- <img src="assets/img/logo.webp" alt=""> -->
-                            <h1 class="sitename">NiceShop</h1>
+                            <h1 class="sitename">{{ setting.system_name }}</h1>
                         </a>
 
                         <!-- Search -->
                         <form class="search-form desktop-search-form">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for products">
+                                <input type="text" class="form-control" placeholder="Buscador de productos">
                                 <button class="btn" type="submit">
                                     <i class="bi bi-search"></i>
                                 </button>
@@ -819,34 +755,31 @@
 
         <main class="main">
 
-            <!-- Hero Section -->
+            <!-- Hero Section               We'll use it--> 
             <section id="hero" class="hero section">
 
                 <div class="hero-container">
                     <div class="hero-content">
                         <div class="content-wrapper" data-aos="fade-up" data-aos-delay="100">
-                            <h1 class="hero-title">Discover Amazing Products</h1>
-                            <p class="hero-description">Explore our curated collection of premium items designed to
-                                enhance
-                                your lifestyle. From fashion to tech, find everything you need with exclusive deals and
-                                fast
-                                shipping.</p>
+                            <h1 class="hero-title">Descubra productos increíbles</h1>
+                            <p class="hero-description">Explora nuestra colección de artículos premium diseñados para
+                                mejorar tu estilo de vida. Desde moda hasta tecnología, encuentra todo lo que necesitas
+                                con ofertas exclusivas y envío rápido..</p>
                             <div class="hero-actions" data-aos="fade-up" data-aos-delay="200">
-                                <a href="#products" class="btn-primary">Shop Now</a>
-                                <a href="#categories" class="btn-secondary">Browse Categories</a>
+                                <a href="#categories" class="btn-secondary">Explorar categorias</a>
                             </div>
                             <div class="features-list" data-aos="fade-up" data-aos-delay="300">
                                 <div class="feature-item">
                                     <i class="bi bi-truck"></i>
-                                    <span>Free Shipping</span>
+                                    <span>Envio gratis</span>
                                 </div>
                                 <div class="feature-item">
                                     <i class="bi bi-award"></i>
-                                    <span>Quality Guarantee</span>
+                                    <span>Garantia de calidad</span>
                                 </div>
                                 <div class="feature-item">
                                     <i class="bi bi-headset"></i>
-                                    <span>24/7 Support</span>
+                                    <span>Soporte 24/7</span>
                                 </div>
                             </div>
                         </div>
@@ -895,180 +828,37 @@
 
             </section><!-- /Hero Section -->
 
-            <!-- Promo Cards Section -->
-            <section id="promo-cards" class="promo-cards section">
-                <div class="container" data-aos="fade-up" data-aos-delay="100">
-                    <div class="row gy-4">
-
-                        <div class="col-lg-6">
-                            <div class="category-featured" data-aos="fade-right" data-aos-delay="200">
-                                <div class="category-image">
-                                    <img src="assets/img/product/product-f-2.webp" alt="Women's Collection"
-                                        class="img-fluid">
-                                </div>
-                                <div class="category-content">
-                                    <span class="category-tag">Trending Now</span>
-                                    <h2>New Summer Collection</h2>
-                                    <p>Discover our latest arrivals designed for the modern lifestyle. Elegant,
-                                        comfortable,
-                                        and sustainable fashion for every occasion.</p>
-                                    <a href="#" class="btn-shop">Explore Collection <i
-                                            class="bi bi-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-
-                            <div class="row gy-4">
-
-                                <div class="col-xl-6">
-                                    <div class="category-card cat-men" data-aos="fade-up" data-aos-delay="300">
-                                        <div class="category-image">
-                                            <img src="assets/img/product/product-m-5.webp" alt="Men's Fashion"
-                                                class="img-fluid">
-                                        </div>
-                                        <div class="category-content">
-                                            <h4>Men's Wear</h4>
-                                            <p>242 products</p>
-                                            <a href="#" class="card-link">Shop Now <i class="bi bi-arrow-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-6">
-                                    <div class="category-card cat-kids" data-aos="fade-up" data-aos-delay="400">
-                                        <div class="category-image">
-                                            <img src="assets/img/product/product-8.webp" alt="Kid's Fashion"
-                                                class="img-fluid">
-                                        </div>
-                                        <div class="category-content">
-                                            <h4>Kid's Fashion</h4>
-                                            <p>185 products</p>
-                                            <a href="#" class="card-link">Shop Now <i class="bi bi-arrow-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-6">
-                                    <div class="category-card cat-cosmetics" data-aos="fade-up" data-aos-delay="500">
-                                        <div class="category-image">
-                                            <img src="assets/img/product/product-3.webp" alt="Cosmetics"
-                                                class="img-fluid">
-                                        </div>
-                                        <div class="category-content">
-                                            <h4>Beauty Products</h4>
-                                            <p>127 products</p>
-                                            <a href="#" class="card-link">Shop Now <i class="bi bi-arrow-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-6">
-                                    <div class="category-card cat-accessories" data-aos="fade-up" data-aos-delay="600">
-                                        <div class="category-image">
-                                            <img src="assets/img/product/product-12.webp" alt="Accessories"
-                                                class="img-fluid">
-                                        </div>
-                                        <div class="category-content">
-                                            <h4>Accessories</h4>
-                                            <p>308 products</p>
-                                            <a href="#" class="card-link">Shop Now <i class="bi bi-arrow-right"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </section><!-- /Promo Cards Section -->
-
-            <!-- Best Sellers Section -->
+            <!-- Best Sellers Section       We'll use it -->
             <section id="best-sellers" class="best-sellers section">
 
                 <!-- Section Title -->
                 <div class="container section-title" data-aos="fade-up">
-                    <h2>Best Sellers</h2>
-                    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+                    <h2>Explora nuestro productos</h2>
+                    <p>Encuentra lo que buscas</p>
                 </div><!-- End Section Title -->
 
                 <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                     <div class="row g-5">
-
-                        <!-- Product 1 -->
-                        <div class="col-lg-3 col-md-6">
+                        <!-- Product -->
+                        <div v-for="item in products" :key="item.id" class="col-lg-3 col-md-6">
                             <div class="product-item">
                                 <div class="product-image">
-                                    <div class="product-badge">Limited</div>
-                                    <img src="assets/img/product/product-1.webp" alt="Product Image" class="img-fluid"
-                                        loading="lazy">
-                                    <div class="product-actions">
-                                        <button class="action-btn wishlist-btn">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
-                                        <button class="action-btn compare-btn">
-                                            <i class="bi bi-arrow-left-right"></i>
-                                        </button>
-                                        <button class="action-btn quickview-btn">
-                                            <i class="bi bi-zoom-in"></i>
-                                        </button>
-                                    </div>
-                                    <button class="cart-btn">Select Options</button>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-category">Premium Collection</div>
-                                    <h4 class="product-name"><a href="product-details.html">Mauris blandit aliquet
-                                            elit</a>
-                                    </h4>
-                                    <div class="product-rating">
-                                        <div class="stars">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star"></i>
-                                        </div>
-                                        <span class="rating-count">(24)</span>
-                                    </div>
-                                    <div class="product-price">$189.00</div>
-                                    <div class="color-swatches">
-                                        <span class="swatch active" style="background-color: #2563eb;"></span>
-                                        <span class="swatch" style="background-color: #059669;"></span>
-                                        <span class="swatch" style="background-color: #dc2626;"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Product 1 -->
-
-                        <!-- Product 2 -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="product-item">
-                                <div class="product-image">
-                                    <div class="product-badge sale-badge">25% Off</div>
                                     <img src="assets/img/product/product-4.webp" alt="Product Image" class="img-fluid"
                                         loading="lazy">
                                     <div class="product-actions">
                                         <button class="action-btn wishlist-btn">
                                             <i class="bi bi-heart"></i>
                                         </button>
-                                        <button class="action-btn compare-btn">
-                                            <i class="bi bi-arrow-left-right"></i>
-                                        </button>
                                         <button class="action-btn quickview-btn">
                                             <i class="bi bi-zoom-in"></i>
                                         </button>
                                     </div>
-                                    <button class="cart-btn">Add to Cart</button>
+                                    <button class="cart-btn">Agregar al carrito</button>
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-category">Best Sellers</div>
-                                    <h4 class="product-name"><a href="product-details.html">Sed do eiusmod tempor
-                                            incididunt</a></h4>
+                                    <div class="product-category">{{ item.name}}</div>
+                                    <h4 class="product-name"><a href="product-details.html">{{ item.short_description}}</a></h4>
                                     <div class="product-rating">
                                         <div class="stars">
                                             <i class="bi bi-star-fill"></i>
@@ -1080,108 +870,15 @@
                                         <span class="rating-count">(38)</span>
                                     </div>
                                     <div class="product-price">
-                                        <span class="old-price">$240.00</span>
+                                        <!-- <span class="old-price">$240.00</span> -->
                                         <span class="current-price">$180.00</span>
                                     </div>
-                                    <div class="color-swatches">
-                                        <span class="swatch active" style="background-color: #1f2937;"></span>
-                                        <span class="swatch" style="background-color: #f59e0b;"></span>
-                                        <span class="swatch" style="background-color: #8b5cf6;"></span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- End Product 2 -->
+                        <!-- End Product -->
 
-                        <!-- Product 3 -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="product-item">
-                                <div class="product-image">
-                                    <img src="assets/img/product/product-7.webp" alt="Product Image" class="img-fluid"
-                                        loading="lazy">
-                                    <div class="product-actions">
-                                        <button class="action-btn wishlist-btn">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
-                                        <button class="action-btn compare-btn">
-                                            <i class="bi bi-arrow-left-right"></i>
-                                        </button>
-                                        <button class="action-btn quickview-btn">
-                                            <i class="bi bi-zoom-in"></i>
-                                        </button>
-                                    </div>
-                                    <button class="cart-btn">Add to Cart</button>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-category">New Arrivals</div>
-                                    <h4 class="product-name"><a href="product-details.html">Lorem ipsum dolor sit amet
-                                            consectetur</a></h4>
-                                    <div class="product-rating">
-                                        <div class="stars">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star"></i>
-                                            <i class="bi bi-star"></i>
-                                        </div>
-                                        <span class="rating-count">(12)</span>
-                                    </div>
-                                    <div class="product-price">$95.00</div>
-                                    <div class="color-swatches">
-                                        <span class="swatch active" style="background-color: #ef4444;"></span>
-                                        <span class="swatch" style="background-color: #06b6d4;"></span>
-                                        <span class="swatch" style="background-color: #10b981;"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Product 3 -->
 
-                        <!-- Product 4 -->
-                        <div class="col-lg-3 col-md-6">
-                            <div class="product-item">
-                                <div class="product-image">
-                                    <div class="product-badge trending-badge">Trending</div>
-                                    <img src="assets/img/product/product-10.webp" alt="Product Image" class="img-fluid"
-                                        loading="lazy">
-                                    <div class="product-actions">
-                                        <button class="action-btn wishlist-btn active">
-                                            <i class="bi bi-heart-fill"></i>
-                                        </button>
-                                        <button class="action-btn compare-btn">
-                                            <i class="bi bi-arrow-left-right"></i>
-                                        </button>
-                                        <button class="action-btn quickview-btn">
-                                            <i class="bi bi-zoom-in"></i>
-                                        </button>
-                                    </div>
-                                    <button class="cart-btn">Add to Cart</button>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-category">Designer Series</div>
-                                    <h4 class="product-name"><a href="product-details.html">Ut enim ad minim veniam
-                                            quis</a>
-                                    </h4>
-                                    <div class="product-rating">
-                                        <div class="stars">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                        </div>
-                                        <span class="rating-count">(56)</span>
-                                    </div>
-                                    <div class="product-price">$165.00</div>
-                                    <div class="color-swatches">
-                                        <span class="swatch" style="background-color: #64748b;"></span>
-                                        <span class="swatch active" style="background-color: #7c3aed;"></span>
-                                        <span class="swatch" style="background-color: #f59e0b;"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Product 4 -->
 
                     </div>
 
@@ -1733,5 +1430,8 @@
     </div>
 </template>
 <script setup>
-
+const props = defineProps({
+    setting: Object,
+    products: Object,
+})
 </script>
