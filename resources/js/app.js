@@ -30,3 +30,4 @@ import '../template/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js';
 import '../template/assets/js/bootstrap.bundle.min.js'
 import '../template/assets/js/pages/dashboard.js';
 import '../template/assets/js/main.js';
+import '../template/assets/vendors/ckeditor/ckeditor.js'

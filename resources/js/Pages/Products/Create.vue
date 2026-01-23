@@ -115,9 +115,8 @@
                                                     <label for="stock">Stock (*)</label>
                                                     <div class="form-group position-relative has-icon-left">
                                                         <input type="number" class="form-control" name="stock"
-                                                            :class="{ 'is-invalid': form.errors.stock }"
-                                                            placeholder="0" v-model="form.stock" step="0.01"
-                                                            min="0">
+                                                            :class="{ 'is-invalid': form.errors.stock }" placeholder="0"
+                                                            v-model="form.stock" step="0.01" min="0">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-boxes"></i>
                                                         </div>
@@ -132,11 +131,9 @@
                                                 <div class="col-md-12">
                                                     <label for="long_description">Descripcion Larga (*)</label>
                                                     <div class="form-group position-relative has-icon-left">
-                                                        <textarea class="form-control"
-                                                            :class="{ 'is-invalid': form.errors.long_description }"
-                                                            placeholder="Descripcion detallada del producto"
-                                                            id="floatingTextarea" rows="3"
-                                                            v-model="form.long_description"></textarea>
+                                                        <div id="editor" ref="editorRef">
+                                                            <p>This is some sample content.</p>
+                                                        </div>
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </div>
@@ -166,6 +163,10 @@
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { Head, useForm, Link } from '@inertiajs/vue3';
+import { onMounted, ref } from 'vue';
+
+const editorRef = ref(null);
+const instanciaEditor = ref(null); // Aquí guardaremos el editor una vez creado
 
 const props = defineProps({
     categories: Object
@@ -181,6 +182,21 @@ const form = useForm({
     stock: ''
 });
 
+onMounted(() => {
+    // Usamos el objeto global que ya está disponible gracias a que lo importaste en app.js
+    if (window.ClassicEditor) {
+        window.ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(editor => {
+                instanciaEditor.value = editor; 
+                // OPCIÓN A: Sincronizar en tiempo real
+                editor.model.document.on('change:data', () => {
+                    form.long_description = editor.getData(); // Captura el HTML (<p>...</p>)
+                });
+            })
+            .catch(error => console.error(error));
+    }
+})
 const storeProduct = () => {
     form.post(route('admin.products.store'), {
         preserveScroll: true,
