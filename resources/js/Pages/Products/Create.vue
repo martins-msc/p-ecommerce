@@ -130,12 +130,9 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <label for="long_description">Descripcion Larga (*)</label>
-                                                    <div class="form-group position-relative has-icon-left">
+                                                    <div class="form-group position-relative">
                                                         <div id="editor" ref="editorRef">
-                                                            <p>This is some sample content.</p>
-                                                        </div>
-                                                        <div class="form-control-icon">
-                                                            <i class="bi bi-text-paragraph"></i>
+                                                            <p>Descripcion detallada del producto.</p>
                                                         </div>
                                                     </div>
                                                     <p v-if="form.errors.long_description" class="text-sm text-danger">

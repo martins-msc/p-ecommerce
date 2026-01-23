@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -26,6 +27,7 @@ class ProductController extends Controller
         }
 
         $products = $query->paginate(5);
+        // return response()->json(ProductResource::collection($products));
         return Inertia::render('Products/Index', [
             'products' => ProductResource::collection($products),
             'filters' => $request->only(['search']),
@@ -48,15 +50,42 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:100|unique:products,code',
+            'short_description' => 'required|string|max:500',
+            'long_description' => 'required|string',
+            'purchase_price' => 'required|numeric|min:0',
+            'sale_price' => 'required|numeric|min:0',
+            'stock' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $product = new Product();
+        $product->name = $request->name;
+        $product->code = $request->code;
+        $product->short_description = $request->short_description;
+        $product->long_description = $request->long_description;
+        $product->purchase_price = $request->purchase_price;
+        $product->sale_price = $request->sale_price;
+        $product->stock = $request->stock;
+        $product->category_id = $request->category_id;
+        $product->save();
+
+        return to_route('admin.products.index')
+            ->with("message", "Producto creado exitosamente")
+            ->with("icon", "success");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return Inertia::render('Products/Show',[
+            'product' => new ProductResource($product)
+        ]);
     }
 
     /**

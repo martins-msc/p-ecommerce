@@ -54,7 +54,7 @@
                                             <tr v-for="(product, index) in products.data" :key="product.id">
                                                 <td class="text-bold-500" style="text-align: center;">{{ index +
                                                     startIndexPag }}</td>
-                                                <td>{{ product.category_id }}</td>
+                                                <td>{{ product.category['name'] }}</td>
                                                 <td>{{ product.name }}</td>
                                                 <td>{{ product.code }}</td>
                                                 <td>{{ product.short_description }}</td>
